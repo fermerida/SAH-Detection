@@ -8,10 +8,33 @@ import csv
 import sys
 import numpy as np
 
+model1 = None
+route_train = ""
+route_test=""
+
+def filemanage(train,test):
+    global route_train
+    route_train=train
+    global route_test
+    route_test = test
+    menu()
+
+
+def graficar():
+    # Se grafican los entrenamientos
+    if model1 is None:
+        print()
+        print("Debe entrenar un modelo antes")
+        menu()
+    else:
+        #Plotter.show_Model([model1, model2])
+        Plotter.show_Model([model1])
+
 
 def train():
+    global model1
     #Cargando conjuntos de datos
-    train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = File.load_dataset()
+    train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = File.load_dataset('datasets/train_catvnoncat.h5','datasets/test_catvnoncat.h5')
 
     # Convertir imagenes a un solo arreglo
     train_set_x = train_set_x_orig.reshape(train_set_x_orig.shape[0], -1).T
@@ -32,36 +55,37 @@ def train():
     model1.training()
 
 
-    model2 = Model(train_set, test_set, reg=False, alpha=0.001, lam=150) #Baja más quitandole la regularización
-    model2.training()
-
-    model2.predict()
-
-    # Se grafican los entrenamientos
-    Plotter.show_Model([model1, model2])
-    #Plotter.show_Model([model1])
-    #Plotter.show_Model([model2])
+    #model2 = Model(train_set, test_set, reg=False, alpha=0.001, lam=150) #Baja más quitandole la regularización
+    #model2.training()
+    menu()
 
 
+ 
 
 def menu(): 
 
     choice = input("""
-                      1: Entrenar modelo
-                      2: Imprimir Grafica de ultimo modelo
-                      3: Verificar imagen
+                      1: Seleccionar ruta de dataset
+                      2: Entrenar modelo
+                      3: Imprimir Grafica de ultimo modelo
+                      4: Verificar imagen
+                      5: Salir
 
                       Seleccione una de las opciones: """)
 
     if choice == "1":
-        train()
+        filemanage("","")
     elif choice == "2":
+        train()
+    elif choice == "3":
         graficar()
-    elif choice=="3":
+    elif choice=="4":
+        sys.exit
+    elif choice=="5":
         sys.exit
     else:
-        print("You must only select either A or B")
-        print("Please try again")
+        print("Debe ingresar alguna de las opciones disponibles")
+        print("Intentelo de nuevo")
         menu()
 
 menu()

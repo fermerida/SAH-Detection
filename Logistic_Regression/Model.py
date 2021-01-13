@@ -6,7 +6,7 @@ from __future__ import print_function
 import numpy as np
 from Logistic_Regression.Data import Data
 
-MAX_ITERATIONS = 10000
+MAX_ITERATIONS = 1000
 MIN_VALUE = 0.0
 STEP = 10 #Cada cuánto va a agregar a la bitácora el costo. Lo hace cuando es múltiplo del valor que se le da
 
@@ -22,7 +22,7 @@ class Model:
         self.train_set = train_set
         self.test_set = test_set
 
-        
+
         # Se inicializan los coeficientes del modelo
         self.betas = np.zeros((self.train_set.n, 1))
         #print(self.betas)

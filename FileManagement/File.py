@@ -7,8 +7,8 @@ import h5py
 
 source = None
 
-def load_dataset():
-    train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
+def load_dataset(route_train, route_test):
+    train_dataset = h5py.File(route_train, "r")
 
 
 
@@ -17,7 +17,7 @@ def load_dataset():
 
 
 
-    test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r")
+    test_dataset = h5py.File(route_test, "r")
     test_set_x_orig = np.array(test_dataset["test_set_x"][:])  # entradas de prueba
     test_set_y_orig = np.array(test_dataset["test_set_y"][:])  # salidas de prueba
 
